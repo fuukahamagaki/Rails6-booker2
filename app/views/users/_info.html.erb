@@ -8,10 +8,23 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <tr>
+	  <th>follows</th>
+	  <th><%= link_to user.followings.count, users_follow_path %></th>
+  </tr>
+   <tr>
+	  <th>followers</th>
+	  <th><%= link_to user.followers.count, users_follow_path %></th>
+  </tr>
 </table>
 
 <div class='row'>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+
+  　<%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
+    <% end %>
+  <% if current_user.id == @user.id %>
+    <%= link_to "フォローする", class: "btn btn-success" %>
+    <%= link_to "フォロー外す", class: "btn btn-info" %>
   <% end %>
 </div>
