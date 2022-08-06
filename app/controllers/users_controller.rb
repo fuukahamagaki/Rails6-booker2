@@ -17,10 +17,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def follow
-    @user = User.find(current_user)
-  end
-
   def update
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "You have updated user successfully."
@@ -42,8 +38,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def correct_user
-    @user = current_user
-    redirect_to(books_path) unless @user == current_user
-  end
 end
