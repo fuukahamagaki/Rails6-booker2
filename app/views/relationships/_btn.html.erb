@@ -1,6 +1,24 @@
-<% if current_user != user%>
+<% if current_user != user %>
   <% if current_user.following?(user) %>
+  <div class="row mr-2">
     <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete, class: "btn btn-info" %>
+  　<%#= link_to "チャットを始める",room_path %>
+  　<% if @user.id == current_user.id %>
+
+    <% else %>
+      <% if @isRoom == true %>
+        <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+      <% else %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, :value=> @user.id %>
+          <% end %>
+          <%= f.submit "チャットを始める" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
   <% else %>
     <%= link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn btn-success" %>
   <% end %>

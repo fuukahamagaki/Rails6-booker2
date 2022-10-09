@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get "home/about"=>"homes#about"
   get '/search', to: 'searches#search'
 
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
@@ -14,6 +18,9 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+  
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show, :index]
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
