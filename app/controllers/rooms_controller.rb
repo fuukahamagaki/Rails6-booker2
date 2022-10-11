@@ -16,5 +16,9 @@ class RoomsController < ApplicationController
     else
       redirect_back(fallback_location: root_path)
     end
+    @notifications = current_user.passive_notifications.where(room_id: @room.id)
+    @notifications.where(checked: false).each do |notification|
+      notification.update(checked: true)
+    end
   end
 end
