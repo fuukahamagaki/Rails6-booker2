@@ -20,6 +20,22 @@
           <td>コメント数: <%= @book.book_comments.count %></td>
           <td>閲覧数: <%= @book.view_counts.count %></td>
           <td><%= render "favorites/btn", book: @book %></td>
+          <%= form_with model:@review, url:book_reviews_path(@book), local: true do |f| %>
+           <td>
+           <div class="main-rating">
+                <div class="ratings">
+                  <span class="far fa-star" id="star"></span>
+                  <span class="far fa-star" id="star"></span>
+                  <span class="far fa-star" id="star"></span>
+                  <span class="far fa-star" id="star"></span>
+                  <span class="far fa-star" id="star"></span>
+                </div>
+                <div class="rating-value-display"><span id="rating-value-display">0</span>/5</div>
+              </div>
+          <%= f.hidden_field :score, id:"rating_value" %>
+          <% end %>
+          <%#= javascript_pack_tag 'packs/review_stars' %>
+          </td>
           <% if current_user.id == @user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
